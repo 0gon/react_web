@@ -27,27 +27,38 @@
                                         second: Math.ceil(Math.random()*9),
                                         value:'',
                                     });
+                                    this.input.focus();
+                                // 함수형 setState 쓰는 경우 -> this.state, 이전 state 값 필요한 경우
+                                // this.setState((prevState)=>{
+                                //     return ({
+                                //         value:prevState.value+1,
+                                //     })
+                                // })
                                 }else{
                                     this.setState({
                                         result:'땡',
                                         value:'',
                                     });
+                                    this.input.focus();
                                 }
                             }
-                onChange = (e)=>this.setState({value:e.target.value}) 
+                onChange = (e)=>this.setState({value:e.target.value});
+
+                input;
+                onRefInput = (c)=>{this.input = c;};
                 render(){
                     return (
-                        <div>
+                        <React.Fragment>
                             <div>{this.state.first} 곱하기 {this.state.second}는?</div>
                             <form onSubmit={this.onSubmit}>
-                                <input type="number" value={this.state.value}
+                                <input ref={this.onRefInput} type="number" value={this.state.value}
                                 onChange={this.onChange}/>
                                 <button>입력!</button>
                             </form>
                             <div>
                             {this.state.result}
                             </div>
-                        </div>
+                        </React.Fragment>
                     );
                 }
             }
